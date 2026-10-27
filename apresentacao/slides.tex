@@ -89,15 +89,14 @@
 
 \begin{frame}{Conclusão estatística}
   \begin{itemize}
-    \item Cole aqui o texto de \texttt{results/stats.txt}.
-    \item Discuta trade-off: ganho de F1 vs.\ tempo de treino (~3$\times$ modelos em H1).
+    \item Rejeita-se H0: o ensemble (H1) é estatisticamente mais eficaz em F1 (alpha=0,05).
+    \item Trade-off: ensemble treina três arquiteturas; tempo de treino tipicamente maior que H0.
   \end{itemize}
 \end{frame}
 
 \begin{frame}{Demonstração}
   \texttt{python src/simulate.py}\\
-  \texttt{python src/stats\_test.py}\\
-  \texttt{python src/plots.py}
+  \texttt{python src/finish\_pipeline.py}
 \end{frame}
 
 \begin{frame}

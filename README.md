@@ -30,6 +30,7 @@ Experimento completo (30 simulações):
 python src/simulate.py
 python src/stats_test.py
 python src/plots.py
+python src/update_report.py
 ```
 
 Saídas:
@@ -40,8 +41,18 @@ Saídas:
 
 ## Relatório e apresentação
 
-- `relatorio/main.tex` — IEEE coluna dupla (Overleaf)
+- `relatorio/main.tex` — IEEE coluna dupla (Overleaf), números preenchidos via `update_report.py`
 - `apresentacao/slides.tex` — Beamer
+- Ajuste **nome, instituição e e-mail** no `main.tex` antes de entregar
+
+### Resultado do experimento (30 simulações, GPU)
+
+| Cenário | F1 (média ± dp) |
+|---------|-----------------|
+| H0 (ResNet18) | 0,8980 ± 0,0184 |
+| H1 (ensemble) | 0,9050 ± 0,0077 |
+
+**Conclusão:** rejeita-se H0 ($p = 0{,}011$, $t$ pareado unilateral); **H1 (ensemble) é mais eficaz** em F1. Detalhes em `results/stats.txt`.
 
 ## Estrutura
 

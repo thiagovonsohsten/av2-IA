@@ -7,24 +7,13 @@
 \usepackage{cite}
 \usepackage{url}
 
-% Atualize após rodar stats_test.py e plots.py
-\newcommand{\mediaFZero}{0,000}
-\newcommand{\mediaFOne}{0,000}
-\newcommand{\pvalor}{0,000}
-\newcommand{\cohend}{0,00}
-\newcommand{\conclusaoStats}{%
-  [Cole aqui a conclusão de \texttt{results/stats.txt}]
-}
+% Valores preenchidos por src/update_report.py
+\newcommand{\mediaFZero}{0,8980 $\pm$ 0,0184}
+\newcommand{\mediaFOne}{0,9050 $\pm$ 0,0077}
+\newcommand{\pvalor}{0,011246}
+\newcommand{\cohend}{0,4401}
+\newcommand{\conclusaoStats}{Rejeita-se H0: o ensemble (H1) é estatisticamente mais eficaz em F1 (alpha=0,05).}
 
-\begin{document}
-
-\title{Estudo Comparativo de Ensemble Learning versus Modelo Único na Classificação de Pneumonia em Radiografias de Tórax}
-
-\author{\IEEEauthorblockN{Seu Nome}
-\IEEEauthorblockA{Curso de Ciência da Computação\\
-Disciplina: Inteligência Artificial (Eletiva)\\
-Instituição -- E-mail: seu.email@instituicao.edu.br}
-}
 
 \maketitle
 
@@ -70,14 +59,14 @@ Métricas: acurácia, F1 (principal) e AUC-ROC. Hipóteses unilaterais sobre F1:
 
 \begin{table}[t]
 \centering
-\caption{Resumo das métricas (média $\pm$ desvio padrão, 30 simulações). Atualize com \texttt{results/results.csv}.}
+\caption{Resumo das métricas (média $\pm$ desvio padrão, 30 simulações).}
 \label{tab:metricas}
 \begin{tabular}{lccc}
 \toprule
 Cenário & Acurácia & F1 & AUC \\
 \midrule
-H0 (modelo único) & -- & \mediaFZero & -- \\
-H1 (ensemble)     & -- & \mediaFOne  & -- \\
+H0 (modelo único) & 0,8580 $\pm$ 0,0286 & 0,8980 $\pm$ 0,0184 & 0,9691 $\pm$ 0,0093 \\
+H1 (ensemble)     & 0,8690 $\pm$ 0,0118 & 0,9050 $\pm$ 0,0077 & 0,9677 $\pm$ 0,0074 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -113,10 +102,10 @@ H1 (ensemble)     & -- & \mediaFOne  & -- \\
 O teste estatístico resultou em $p=\pvalor$ (unilateral), com Cohen's $d=\cohend$. \conclusaoStats
 
 \section{Discussão}
-O ensemble tende a combinar representações complementares (ResNet, MobileNet, EfficientNet), porém exige treinar três arquiteturas (Fig.~\ref{fig:time}). Em simulações onde H1 não supera H0 de forma significativa, o ganho marginal pode não justificar o custo em ambientes com restrição de tempo ou energia. Limitações incluem imagens de baixa resolução e ausência de calibração de limiar por validação.
+O ensemble combina representações complementares (ResNet, MobileNet, EfficientNet) e, neste experimento, obteve F1 médio superior ao modelo único com diferença estatisticamente significativa ($p=0{,}011$). O efeito é de magnitude pequena a moderada (Cohen's $d=0{,}44$), ou seja, ganho consistente mas não drástico. O custo é claro na Fig.~\ref{fig:time}: H1 exige treinar três arquiteturas. Limitações incluem imagens de baixa resolução e limiar fixo em 0,5 sem calibração na validação.
 
 \section{Conclusão}
-Comparamos modelo único versus ensemble sob transfer learning na PneumoniaMNIST, com 30 simulações pareadas e inferência estatística formal. O código reprodutível está disponível no repositório do projeto. A decisão entre H0 e H1 deve considerar tanto significância estatística do F1 quanto custo computacional.
+Comparamos modelo único versus ensemble sob transfer learning na PneumoniaMNIST, com 30 simulações pareadas e inferência estatística formal. Rejeitamos $H_0$ em favor da hipótese alternativa: o ensemble (H1) é mais eficaz em F1. Para implantação, recomenda-se H1 quando o ganho de robustez (menor desvio padrão do F1) compensa o tempo extra de treino; caso contrário, H0 permanece uma baseline forte e mais rápida.
 
 \bibliographystyle{IEEEtran}
 \bibliography{refs}
