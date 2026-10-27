@@ -1,0 +1,13 @@
+=== Teste de hipótese (métrica principal: F1) ===
+Amostras pareadas (seeds): n = 2
+Média F1 H0 (modelo único): 0.9074 (dp=0.0051)
+Média F1 H1 (ensemble):     0.9052 (dp=0.0052)
+Diferença média (H1 - H0): -0.0022
+IC 95% da diferença: [-0.0024, -0.0020]
+Cohen's d (pareado): -16.6360
+
+Shapiro-Wilk (normalidade das diferenças): W=nan, p=nan
+Teste escolhido: Wilcoxon (unilateral, H1 > H0)
+Estatística: 0.0 | p (unilateral): 1.000000
+
+Não se rejeita H0: não há evidência suficiente de que o ensemble supere o modelo único.

@@ -1,0 +1,109 @@
+\documentclass[aspectratio=169,10pt]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{graphicx}
+\usepackage{booktabs}
+
+\title{Modelo único vs.\ Ensemble\\na detecção de pneumonia}
+\subtitle{2ª Avaliação -- Inteligência Artificial (Eletiva)}
+\author{Seu Nome}
+\institute{Ciência da Computação}
+\date{\today}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Problema e objetivo}
+  \begin{itemize}
+    \item Classificar radiografias de tórax: normal \ vs.\ pneumonia.
+    \item Três técnicas: \textbf{classificação}, \textbf{transfer learning}, \textbf{ensemble} (alternativa: modelo único).
+    \item 30 simulações; inferir H0 ou H1 com teste estatístico ($\alpha=0{,}05$).
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Dataset}
+  \textbf{PneumoniaMNIST} (MedMNIST): 64$\times$64, divisão fixa treino/val/teste.
+  \begin{itemize}
+    \item Pré-processamento: 3 canais + normalização ImageNet.
+    \item Métrica principal: \textbf{F1} (classes desbalanceadas).
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Cenários comparados}
+  \begin{table}
+    \centering
+    \begin{tabular}{ll}
+      \toprule
+      & Técnica C \\
+      \midrule
+      \textbf{H0} (hipótese nula) & ResNet18 único \\
+      \textbf{H1} (hipótese alternativa) & Ensemble: ResNet18 + MobileNetV2 + EfficientNet-B0 \\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+  Votação suave (média de probabilidades). Mesma ResNet18 treinada em ambos (pareamento).
+\end{frame}
+
+\begin{frame}{Protocolo experimental}
+  \begin{itemize}
+    \item Seeds 0--29; Adam, lr $10^{-3}$, batch 128, até 5 épocas + early stopping.
+    \item Shapiro-Wilk $\rightarrow$ $t$ pareado ou Wilcoxon (unilateral: H1 $>$ H0).
+    \item Cohen's $d$ e gráficos em \texttt{results/figs/}.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{F1 por cenário}
+  \centering
+  \includegraphics[width=0.75\linewidth]{../results/figs/f1_boxplot.png}
+\end{frame}
+
+\begin{frame}{F1 por simulação}
+  \centering
+  \includegraphics[width=0.85\linewidth]{../results/figs/f1_por_seed.png}
+\end{frame}
+
+\begin{frame}{Diferenças e custo computacional}
+  \begin{columns}
+    \column{0.5\textwidth}
+      \includegraphics[width=\linewidth]{../results/figs/f1_diff_hist.png}
+    \column{0.5\textwidth}
+      \includegraphics[width=\linewidth]{../results/figs/tempo_treino.png}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{ROC e matriz de confusão (seed 0)}
+  \begin{columns}
+    \column{0.5\textwidth}
+      \centering
+      \textbf{H0}\\
+      \includegraphics[width=\linewidth]{../results/figs/roc_conf_h0.png}
+    \column{0.5\textwidth}
+      \centering
+      \textbf{H1}\\
+      \includegraphics[width=\linewidth]{../results/figs/roc_conf_h1.png}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Conclusão estatística}
+  \begin{itemize}
+    \item Cole aqui o texto de \texttt{results/stats.txt}.
+    \item Discuta trade-off: ganho de F1 vs.\ tempo de treino (~3$\times$ modelos em H1).
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Demonstração}
+  \texttt{python src/simulate.py}\\
+  \texttt{python src/stats\_test.py}\\
+  \texttt{python src/plots.py}
+\end{frame}
+
+\begin{frame}
+  \centering
+  \Large Obrigado!\\
+  \normalsize Perguntas?
+\end{frame}
+
+\end{document}

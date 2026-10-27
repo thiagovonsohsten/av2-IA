@@ -1,0 +1,19 @@
+# Bytecode e caches do Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Ambientes virtuais e segredos
+.venv/
+venv/
+env/
+.env
+
+# Ferramentas locais
+.cursor/
+.idea/
+.vscode/
+
+# Sistema
+.DS_Store
+Thumbs.db
