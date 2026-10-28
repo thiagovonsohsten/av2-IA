@@ -28,8 +28,15 @@ Experimento completo (30 simulações):
 
 ```bash
 python src/simulate.py
+python src/finish_pipeline.py   # roda stats_test, plots, extra_plots e update_report
+```
+
+Ou, passo a passo:
+
+```bash
 python src/stats_test.py
 python src/plots.py
+python src/extra_plots.py   # figuras adicionais (dataset, PR, calibração, limiar, IC, pipeline)
 python src/update_report.py
 ```
 
@@ -37,13 +44,14 @@ Saídas:
 
 - `results/results.csv` — métricas por seed e cenário
 - `results/stats.txt` — testes estatísticos e conclusão H0/H1
-- `results/figs/` — gráficos para o relatório
+- `results/seed0_probs.npz` — probabilidades da seed 0 (insumo de `extra_plots.py`)
+- `results/figs/` — 17 gráficos para o relatório e os slides
 
 ## Relatório e apresentação
 
 - `relatorio/main.tex` — IEEE coluna dupla (Overleaf), números preenchidos via `update_report.py`
 - `apresentacao/slides.tex` — Beamer
-- Ajuste **nome, instituição e e-mail** no `main.tex` antes de entregar
+- Autores, instituição e e-mails já preenchidos no `main.tex` e no `slides.tex`; confira antes de entregar
 
 ### Resultado do experimento (30 simulações, GPU)
 
@@ -65,6 +73,9 @@ src/
   ensemble.py    # votação suave
   metrics.py     # acurácia, F1, AUC
   simulate.py    # 30 simulações
-  stats_test.py  # Shapiro, t pareado / Wilcoxon
-  plots.py       # figuras
+  stats_test.py  # Shapiro, t pareado / Wilcoxon, IC 95% (t de Student)
+  plots.py       # figuras principais
+  extra_plots.py # figuras extras (dataset, PR, calibração, limiar, IC, pipeline)
+  update_report.py   # injeta métricas no main.tex e slides.tex
+  finish_pipeline.py # roda stats_test + plots + extra_plots + update_report
 ```

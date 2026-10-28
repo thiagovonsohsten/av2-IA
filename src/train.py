@@ -8,7 +8,8 @@ import torch
 import torch.nn as nn
 from torch.optim import Adam
 
-from config import DEVICE, EPOCHS, LR, PATIENCE
+import config
+from config import DEVICE, LR, PATIENCE
 from metrics import compute_metrics
 
 
@@ -45,7 +46,7 @@ def train_model(model, train_loader, val_loader):
     stale = 0
 
     t0 = time.perf_counter()
-    for _ in range(EPOCHS):
+    for _ in range(config.EPOCHS):  # leitura dinâmica: respeita --epochs do simulate.py
         model.train()
         for x, y in train_loader:
             x, y = x.to(DEVICE), y.to(DEVICE).squeeze().long()

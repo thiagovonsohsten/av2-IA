@@ -3,11 +3,11 @@ Amostras pareadas (seeds): n = 30
 Média F1 H0 (modelo único): 0.8980 (dp=0.0184)
 Média F1 H1 (ensemble):     0.9050 (dp=0.0077)
 Diferença média (H1 - H0): 0.0070
-IC 95% da diferença: [0.0013, 0.0126]
+IC 95% da diferença: [0.0011, 0.0129]
 Cohen's d (pareado): 0.4401
 
 Shapiro-Wilk (normalidade das diferenças): W=0.9579, p=0.2739
 Teste escolhido: t pareado (unilateral)
-Estatística: 2.4105927463848964 | p (unilateral): 0.011246
+Estatística: 2.4105927463848986 | p (unilateral): 0.011246
 
 Rejeita-se H0: o ensemble (H1) é estatisticamente mais eficaz em F1 (alpha=0,05).

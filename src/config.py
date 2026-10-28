@@ -1,7 +1,10 @@
 """Hiperparâmetros centralizados do experimento."""
 from pathlib import Path
 
-import torch
+try:
+    import torch
+except ImportError:  # análises (stats/plots/report) funcionam sem torch
+    torch = None
 
 # Caminhos
 ROOT = Path(__file__).resolve().parent.parent
@@ -27,4 +30,4 @@ MODELS_ENSEMBLE = ("resnet18", "mobilenet_v2", "efficientnet_b0")
 IMAGENET_MEAN = (0.485, 0.456, 0.406)
 IMAGENET_STD = (0.229, 0.224, 0.225)
 
-DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu") if torch else None

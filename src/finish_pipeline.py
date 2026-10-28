@@ -8,7 +8,7 @@ PY = sys.executable
 
 
 def main():
-    for script in ("stats_test.py", "plots.py", "update_report.py"):
+    for script in ("stats_test.py", "plots.py", "extra_plots.py", "update_report.py"):
         subprocess.check_call([PY, str(ROOT / "src" / script)], cwd=str(ROOT))
     print("Pipeline concluído: results/stats.txt, results/figs/, relatorio/, apresentacao/")
 

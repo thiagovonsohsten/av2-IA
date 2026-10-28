@@ -17,3 +17,14 @@ env/
 # Sistema
 .DS_Store
 Thumbs.db
+
+# Subprodutos do LaTeX (os .pdf finais são versionados)
+*.aux
+*.log
+*.bbl
+*.blg
+*.nav
+*.out
+*.snm
+*.toc
+*.synctex.gz

@@ -1,4 +1,11 @@
-"""Atualiza main.tex e slides.tex com métricas de results/."""
+"""Atualiza main.tex e slides.tex com métricas de results/.
+
+ATENÇÃO: este script atualiza apenas as macros (\\mediaFZero, \\mediaFOne,
+\\pvalor, \\cohend, \\conclusaoStats) e a tabela de métricas. Números citados
+em texto corrido no main.tex (IC 95%, W/p do Shapiro, t, matriz de confusão,
+tempos, vitórias por seed) devem ser revisados manualmente se as simulações
+forem reexecutadas.
+"""
 import re
 import sys
 from pathlib import Path
@@ -57,9 +64,9 @@ def patch_main_tex(m: dict, s: dict):
     for pat, repl in replacements:
         tex = re.sub(pat, lambda _m, r=repl: r, tex, count=1)
     concl = s["conclusion"].replace("_", "\\_")
-    concl_line = f"\\newcommand{{\\conclusaoStats}}{{{concl}}}\n"
+    concl_line = f"\\newcommand{{\\conclusaoStats}}{{{concl}}}"
     tex = re.sub(
-        r"\\newcommand\{\\conclusaoStats\}\{[\s\S]*?\n\}",
+        r"\\newcommand\{\\conclusaoStats\}\{[^\n]*\}",
         lambda _m: concl_line,
         tex,
         count=1,

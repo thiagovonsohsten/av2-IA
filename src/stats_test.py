@@ -25,7 +25,8 @@ def main():
     if len(h0) != len(h1):
         raise ValueError("Número de linhas H0 e H1 difere.")
 
-    seeds = h0["seed"].values
+    if not (h0["seed"].values == h1["seed"].values).all():
+        raise ValueError("Seeds de H0 e H1 não estão alinhadas; pareamento inválido.")
     f0 = h0["f1"].values
     f1 = h1["f1"].values
     diff = f1 - f0  # positivo favorece H1
@@ -52,8 +53,10 @@ def main():
 
     mean_diff = diff.mean()
     se = diff.std(ddof=1) / np.sqrt(len(diff)) if len(diff) > 1 else 0.0
-    ci_low = mean_diff - 1.96 * se
-    ci_high = mean_diff + 1.96 * se
+    # IC 95% com distribuição t (gl = n-1), adequado a amostras pequenas
+    t_crit = stats.t.ppf(0.975, len(diff) - 1) if len(diff) > 1 else float("nan")
+    ci_low = mean_diff - t_crit * se
+    ci_high = mean_diff + t_crit * se
     d = cohens_d(diff)
 
     reject = p_one < alpha
